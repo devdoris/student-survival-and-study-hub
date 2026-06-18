@@ -1,1 +1,0 @@
-# student-survival-and-study-hub
