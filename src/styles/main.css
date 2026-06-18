@@ -10,6 +10,18 @@ body {
   color: #222;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .header {
   background: blueviolet;
   color: white;
@@ -34,6 +46,7 @@ body {
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 0.5s ease;
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
@@ -70,6 +83,8 @@ input:focus,
 textarea:focus {
   outline: none;
   border-color: blueviolet;
+  box-shadow: 0 0 10px rgba(138, 43, 226, 0.25);
+  transition: all 0.3s ease;
 }
 
 button {
@@ -103,6 +118,14 @@ button:hover {
   margin-top: 0.75rem;
   background: #eef3ff;
   border-radius: 8px;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.assignment-item:hover {
+  transform: translateX(4px);
+  background: #e3ebff;
 }
 
 .assignment-label {
@@ -114,6 +137,16 @@ button:hover {
 
 .assignment-label span {
   flex: 1;
+}
+
+.assignment-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.assignment-details small {
+  color: #666;
+  margin-top: .25rem;
 }
 
 .complete-checkbox {
@@ -130,6 +163,7 @@ button:hover {
 .completed {
   text-decoration: line-through;
   opacity: 0.6;
+  transition: all 0.3s ease;
 }
 
 .progress-bar {
@@ -144,8 +178,22 @@ button:hover {
 #progress-fill {
   width: 0;
   height: 100%;
-  background: #2563eb;
-  transition: width 0.4s ease;
+  background: linear-gradient(
+    90deg,
+    #2563eb,
+    blueviolet
+  );
+  transition: width 0.5s ease;
+}
+
+textarea {
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+button:active {
+  transform: scale(0.97);
 }
 
 #notes-area {
@@ -174,11 +222,15 @@ button:hover {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  transition: transform 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .book-card:hover {
   transform: scale(1.02);
+  box-shadow:
+    0 6px 15px rgba(0, 0, 0, 0.12);
 }
 
 .book-cover {

@@ -1,5 +1,7 @@
 import { getAssignments, saveAssignments } from "./storage.js";
 import { updateProgress } from "./progress.js";
+import { renderUpcomingDeadlines } from "./upcomingDeadlines.js";
+import { updateStatistics } from "./statistics.js";
 
 let assignments = getAssignments();
 
@@ -16,41 +18,58 @@ export function renderAssignments() {
     li.classList.add("assignment-item");
 
     li.innerHTML = `
-      <label class="assignment-label">
-        <input
-          type="checkbox"
-          class="complete-checkbox"
-          data-id="${index}"
-          ${assignment.completed ? "checked" : ""}
-        />
+  <label class="assignment-label">
+    <input
+      type="checkbox"
+      class="complete-checkbox"
+      data-id="${index}"
+      ${assignment.completed ? "checked" : ""}
+    />
 
-        <span class="${
-          assignment.completed ? "completed" : ""
-        }">
-          ${assignment.title}
-        </span>
-      </label>
+    <div class="assignment-details">
+      <span class="${
+        assignment.completed
+          ? "completed"
+          : ""
+      }">
+        ${assignment.title}
+      </span>
 
-      <button
-        data-id="${index}"
-        class="delete-btn"
-      >
-        Delete
-      </button>
-    `;
+      <small>
+        Due:
+        ${
+          assignment.dueDate ||
+          "No date"
+        }
+      </small>
+    </div>
+  </label>
+
+  <button
+    data-id="${index}"
+    class="delete-btn"
+  >
+    Delete
+  </button>
+`;
 
     list.appendChild(li);
   });
 
   attachEvents();
 
-  // Update progress bar and text
   updateProgress();
+  updateStatistics();
+  renderUpcomingDeadlines();
 }
 
-export function addAssignment(task) {
+export function addAssignment(
+  task,
+  dueDate
+) {
   const newAssignment = {
     title: task,
+    dueDate,
     completed: false,
     createdAt: Date.now(),
   };
